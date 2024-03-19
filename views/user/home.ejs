@@ -1,0 +1,99 @@
+<%include('../layouts/header.ejs')%> 
+
+<style>
+ 
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    text-align: center;
+    color: #343a40;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .verified {
+    color: #28a745; 
+  }
+
+  .edit-link, .logout-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #007bff; 
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .edit-link:hover, .logout-link:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+</style>
+
+<div class="container">
+  <h3>Welcome, <%= user.name %></h3>
+
+  <table>
+    <tr>
+      <td colspan="2"><img src="userImages/<%= user.image %>" width="100px" height="100px" alt="<%= user.image %>"></td>
+    </tr>
+    <tr>
+      <td><strong>Email:</strong></td>
+      <td><%= user.email %></td>
+    </tr>
+    <tr>
+      <td><strong>Mobile:</strong></td>
+      <td><%= user.mobile %></td>
+    </tr>
+    <tr>
+      <td><strong>Verified:</strong></td>
+      <td>
+        <% if (user.is_verified == 1) { %>
+          <p class="verified">Verified</p>
+        <% } else { %>
+          <p>Not Verified</p>
+        <% } %>
+      </td>
+    </tr>
+  </table>
+
+  <a href="/edit?id=<%= user._id %>" class="edit-link">Edit</a>
+  <a href="/logout" class="logout-link">Log out</a>
+</div>
+
+<%include('../layouts/footer.ejs')%>

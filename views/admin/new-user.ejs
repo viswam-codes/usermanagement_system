@@ -1,0 +1,86 @@
+<% include('../layouts/header.ejs')%>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="file"],
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  p.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    margin-top: 10px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h1>Add New User</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Enter Name" required />
+  <br /><br />
+  <input type="email" name="email" placeholder="Enter Email" required />
+  <br /><br />
+  <input type="text" name="mno" placeholder="Enter Mobile" required />
+  <br /><br />
+  <input type="file" name="image" required />
+  <br /><br />
+ 
+  <input type="submit" value="Add User" />
+</form>
+
+<% if(typeof message !== 'undefined'){ %>
+<p class="error-message"><%= message %></p>
+<% } %> 
+
+<a href="/admin/dashboard">Go Back</a>
+
+<% include('../layouts/footer.ejs')%>

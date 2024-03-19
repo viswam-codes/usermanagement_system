@@ -1,0 +1,245 @@
+<% include('../layouts/header.ejs')%>
+
+<style>
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="file"] {
+    width: calc(100% - 24px); /* Adjusted width to accommodate small button */
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  .custom-file-upload {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+  }
+
+  .filename {
+    margin-left: 10px;
+    color: #777;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .form-group input[type="file"] {
+    overflow: hidden;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  
+  input[type="submit"] {
+    width: calc(100% - 24px); 
+    padding: 12px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #218838;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 3px; /* Decrease the space between validation text and input field */
+    margin-bottom: 3px; /* Decrease the space between validation text and input field */
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align input fields and error messages to the left */
+    margin-bottom: 15px; /* Adjust the space between input fields */
+  }
+
+  .custom-file-upload {
+    margin-top: 15px; /* Adjust spacing between file input and error message */
+  }
+
+  file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10px; /* Adjust spacing between file input and error message */
+  }
+
+  .file-input-wrapper input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10px; /* Adjust spacing between file input and error message */
+    display: flex;
+    justify-content: space-between; /* Align label and text to the sides */
+    align-items: center; /* Center vertically */
+  }
+
+  .file-input-wrapper input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .filename {
+    margin-left: 10px;
+    color: #777;
+  }
+</style>
+<div class="container">
+  <h1>User Registration Form</h1>
+
+  <form id="registrationForm" action="" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <input type="text" name="name" id="name" class="form-control" onkeyup="validateName()" placeholder="Enter Name" required />
+      <span id="nameError" class="error-message"></span>
+    </div>
+    <div class="form-group">
+      <input type="email" name="email" id="email" class="form-control" onkeyup="validateEmail()" placeholder="Enter Email" required />
+      <span id="emailError" class="error-message"></span>
+    </div>
+    <div class="form-group">
+      <input type="text" name="mno" id="mno" class="form-control" onkeyup="validateMobile()" placeholder="Enter Mobile" required />
+      <span id="mobileError" class="error-message"></span>
+    </div>
+    <div class="form-group">
+      <div class="file-input-wrapper">
+        <label for="image" class="custom-file-upload">Choose Profile Picture</label>
+        <span class="filename">No file chosen</span>
+        <input type="file" name="image" id="image" class="form-control-file" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" id="password" class="form-control" onkeyup="validatePassword()" placeholder="Enter Password" required />
+      <span id="passwordError" class="error-message"></span>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Register" class="btn btn-primary" />
+    </div>
+  </form>
+
+  <% if(typeof message !== 'undefined'){ %>
+  <p class="message"><%= message %></p>
+  <% } %>
+</div>
+
+<script>
+  function validateName() {
+    const nameInput = document.getElementById('name');
+    const nameError = document.getElementById('nameError');
+    const nameRegex = /^[a-zA-Z\s]+$/;
+
+    if (!nameRegex.test(nameInput.value.trim())) {
+      nameError.textContent = 'Name must contain only letters and spaces';
+    } else {
+      nameError.textContent = '';
+    }
+  }
+
+  function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(emailInput.value.trim())) {
+      emailError.textContent = 'Please enter a valid email address';
+    } else {
+      emailError.textContent = '';
+    }
+  }
+
+  function validateMobile() {
+    const mobileInput = document.getElementById('mno');
+    const mobileError = document.getElementById('mobileError');
+    const mobileRegex = /^\d{10}$/;
+
+    if (!mobileRegex.test(mobileInput.value.trim())) {
+      mobileError.textContent = 'Mobile number must be 10 digits';
+    } else {
+      mobileError.textContent = '';
+    }
+  }
+
+  function validatePassword() {
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (!passwordRegex.test(passwordInput.value.trim())) {
+      passwordError.textContent = 'Password must contain at least 8 characters including at least one uppercase letter, one lowercase letter, and one number';
+    } else {
+      passwordError.textContent = '';
+    }
+  }
+</script>
+
+<% include('../layouts/footer.ejs')%>

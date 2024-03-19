@@ -1,0 +1,72 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    form {
+        max-width: 300px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    h3 {
+        text-align: center;
+        color: #f44336;
+        margin-top: 10px;
+    }
+</style>
+
+<h1>Admin Login</h1>
+
+<% 
+if(typeof message !=='undefined'){
+    %>
+    <h3><%= message %></h3>
+    <%
+}
+%>
+
+<form action="" method="post">
+
+    <input type="email" name="email" placeholder="Enter Email">
+    <br><br>
+    <input type="password" name="password" placeholder="Enter password">
+    <br><br>
+    <input type="submit" value="Login">
+    <br><br>
+
+</form>
+
+<% include('../layouts/footer.ejs') %>

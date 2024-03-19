@@ -1,0 +1,115 @@
+<% include('../layouts/header.ejs') %>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
+
+    .not-found {
+        text-align: center;
+        font-style: italic;
+        color: #999;
+    }
+</style>
+
+<h1>Dashboard</h1>
+
+<button class="button" onclick="window.location.href='/admin/new-user'">Add New User</button>
+<br><br>
+
+<table width="50%">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Image</th>
+        <th>Verified</th>
+        <th>Actions</th>
+    </tr>
+
+<%
+    if(users.length > 0){
+        for(let i=0;i< users.length;i++){
+            %>
+            <tr>
+                <td><%= users[i].name %></td>
+                <td><%= users[i].email %></td>
+                <td><%= users[i].mobile %></td>
+                <td><img src="/userImages/<%= users[i].image %>" alt="<%= users[i].image %>" width="100px" height="100px"></td>
+                <td><%
+                    if(users[i].is_verified==0){
+                        %>
+                        <p>Not verified</p>
+                        <%
+                    }else{
+                        %>
+                        <p>Verified</p>
+                        <%
+                    }
+                 %></td>
+                 <td>
+                    <button class="button" onclick="window.location.href='/admin/edit-user?id=<%= users[i]._id %>'">Edit</button>
+                    <button class="button" onclick="window.location.href='/admin/delete-user?id=<%= users[i]._id %>'">Delete</button>
+                </td>
+            </tr>
+            <%
+        }
+    } else {
+        %>
+        <tr>
+            <td colspan="6" class="not-found">Users Not Found</td>
+        </tr>
+        <%
+    }
+%>
+</table>
+<br>
+
+<button class="button" onclick="window.location.href='/admin/home'">Go To Home</button>
+
+<% include('../layouts/footer.ejs') %>

@@ -1,0 +1,87 @@
+<%include('../layouts/header.ejs')%> 
+
+<style>
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    text-align: center;
+    color: #333;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="file"] {
+    width: calc(100% - 40px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  input[type="submit"] {
+    width: calc(100% - 40px);
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<div class="container">
+  <h3>Welcome, <%= user.name %></h3>
+
+  <img src="userImages/<%= user.image %>" width="100px" height="100px" alt="<%= user.image %>">
+
+  <form action="" method="post" enctype="multipart/form-data">
+    <input type="file" name="image">
+    <input type="hidden" name="user_id" value="<%=user._id %>">
+    <br><br> 
+    <input type="text" name="name" value="<%= user.name %>" placeholder="Enter name" required>
+    <br><br>
+    <input type="email" name="email" value="<%= user.email %>" placeholder="Enter email" required>
+    <br><br>
+    <input type="text" name="mno" value="<%= user.mobile %>" placeholder="Enter mobile" required>
+    <br><br>
+    <input type="submit" value="Update Profile">
+  </form>
+</div>
+
+<%include('../layouts/footer.ejs')%>
+

@@ -1,0 +1,77 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    table {
+        width: 50%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td:first-child {
+        font-weight: bold;
+        width: 30%;
+    }
+
+    img {
+        display: block;
+        margin: auto;
+    }
+
+    a.button {
+        display: block;
+        width: 100px;
+        text-align: center;
+        padding: 10px;
+        margin: 20px auto;
+        text-decoration: none;
+        color: #fff;
+        background-color: #4caf50; /* Green */
+        border-radius: 5px;
+    }
+
+    a.button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
+</style>
+
+<h1>Welcome, <%= admin.name %></h1>
+
+<a class="button" href="/admin/dashboard">Dashboard</a>
+
+<table>
+    <tr>
+        <td colspan="2"><img src="/userImages/<%= admin.image %>" width="100px" height="100px" alt="<%= admin.image %>"></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td><%= admin.email %></td>
+    </tr>
+    <tr>
+        <td>Mobile</td>
+        <td><%= admin.mobile %></td>
+    </tr>
+</table>
+
+<a class="button" href="/admin/logout">Logout</a>
+
+<% include('../layouts/footer.ejs') %>
